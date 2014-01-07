@@ -1,0 +1,27 @@
+<html>
+<head>
+<script src="/js/jquery-1.10.2.min.js"></script>
+<script src="/js/jquery.SPServices-2013.01.min.js"></script>
+<script src="/js/Util.js"></script>
+
+<!-- the following 5 js files are required to use CSOM -->
+<script src="/_layouts/1033/init.js"></script>
+<script src="/_layouts/MicrosoftAjax.js"></script>
+<script src="/_layouts/sp.core.js"></script>
+<script src="/_layouts/sp.runtime.js"></script>
+<script src="/_layouts/sp.js"></script>
+</head>
+
+<body>
+<input type="hidden" id="argsI" value="Outra;Title;Novo item args" />
+<input type="hidden" id="argsU" value="Outra;1;Title;Mudei args" />
+<input type="hidden" id="argsD" value="Outra;4" />
+<input type="hidden" id="argsR" value="Outra;" />
+<input type="hidden" id="argsRID" value="Outra;3" />
+
+<input type="button" value="Insert" onclick="CRUD('Insert', argsI.value)"/>
+<input type="button" value="Update" onclick="CRUD('Update', argsU.value)"/>
+<input type="button" value="Delete" onclick="CRUD('Delete', argsD.value)"/>
+<input type="button" value="Retrieve" onclick="CRUD('Retrieve', argsR.value)"/>
+<input type="button" value="Retrieve ID" onclick="CRUD('RetrieveID', argsRID.value)"/>
+</body>
