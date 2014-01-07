@@ -1,4 +1,11 @@
-Scripts
+Scripts JavaScript e jQuery para SharePoint
 =======
 
-Scripts JavaScript e jQuery
+[ Util.js ]
+
+CRUD do SharePoint usando jQuery que contém os métodos:
+- InsertItem: Inserir item em uma lista sharepoint;
+- UpdateItem: Atualizar item em uma lista sharepoint;
+- DeleteItem: Deletar itens em uma lista sharepoint;
+- RetrieveItem: Recuperar todos os itens em uma lista sharepoint;
+- RetrieveID: Recuperar item por ID em uma lista sharepoint;
