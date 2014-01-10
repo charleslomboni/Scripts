@@ -13,15 +13,24 @@
 </head>
 
 <body>
-<input type="hidden" id="argsI" value="Outra;Title;Novo item args" />
-<input type="hidden" id="argsU" value="Outra;1;Title;Mudei args" />
-<input type="hidden" id="argsD" value="Outra;4" />
-<input type="hidden" id="argsR" value="Outra;" />
-<input type="hidden" id="argsRID" value="Outra;3" />
 
-<input type="button" value="Insert" onclick="CRUD('Insert', argsI.value)"/>
-<input type="button" value="Update" onclick="CRUD('Update', argsU.value)"/>
-<input type="button" value="Delete" onclick="CRUD('Delete', argsD.value)"/>
-<input type="button" value="Retrieve" onclick="CRUD('Retrieve', argsR.value)"/>
-<input type="button" value="Retrieve ID" onclick="CRUD('RetrieveID', argsRID.value)"/>
+Nome Lista: <br /><input type="text" id="txtNomeLista" value="" /><br />
+Internal Name: <br /><input type="text" id="txtInternalName"  value="" /><br />
+Texto: <br /><input type="text" id="txtTexto"  value=""/><br />
+ID: <br /><input type="text" id="txtID"  value=""/><br />
+
+<input type="hidden" id="argsI" value="" />
+<input type="hidden" id="argsU" value="" />
+<input type="hidden" id="argsD" value="" />
+<input type="hidden" id="argsR" value="" />
+<input type="hidden" id="argsRID" value="" />
+
+<input type="button" value="Insert" onclick="argInsert();CRUD('Insert', argsI.value)"/>
+<input type="button" value="Update" onclick="argUpdate();CRUD('Update', argsU.value)"/>
+<input type="button" value="Delete" onclick="argDelete();CRUD('Delete', argsD.value)"/>
+<input type="button" value="Retrieve" onclick="argRetrieve();CRUD('Retrieve', argsR.value)"/>
+<input type="button" value="Retrieve ID" onclick="argRetrieveID();CRUD('RetrieveID', argsRID.value)"/>
+
+<div id="tabela"></div>
+
 </body>
