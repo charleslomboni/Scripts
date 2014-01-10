@@ -115,17 +115,21 @@ function RetrieveItem(listTitle) {
 
 function RetrieveItemID(listTitle, idItem) {
     var ctx = new SP.ClientContext.get_current();
+
+    var camlQuery = new SP.CamlQuery();
+    camlQuery.set_viewXml('<View><Query><Where><Eq><FieldRef Name="ID"></FieldRef><Value Type="Text">' + idItem + '</Value></Eq></Where></Query></View>');
+
     var web = ctx.get_web(),
         list = web.get_lists().getByTitle(listTitle),
-        items = list.getItems('');
+        items = list.getItems(camlQuery);
 
     var item = ctx.loadQuery(items);
     ctx.executeQueryAsync(function () {
         item.forEach(function (itm) {
-            if (parseInt(itm.get_item("ID")) === parseInt(idItem)) {
-                MontaTabelaID(idItem, itm.get_item("Title"));
-                console.log("Item " + idItem + ": ", itm.get_fieldValues());
-            }
+            //if (parseInt(itm.get_item("ID")) === parseInt(idItem)) {
+            MontaTabelaID(idItem, itm.get_item("Title"));
+            console.log("Item " + idItem + ": ", itm.get_fieldValues());
+            //}
         });
     });
 }
