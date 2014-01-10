@@ -1,13 +1,31 @@
-﻿/// <reference path="http://localhost:63087/js/jquery-1.10.2.min.js" />
+/// <reference path="http://localhost:63087/js/jquery-1.10.2.min.js" />
 /// <reference path="http://localhost:63087/js/jquery.SPServices-2013.01.min.js" />
 
 $(document).ready(function () {
-    //var currentSite = $().SPServices.SPGetCurrentSite();
-    var ctx = new SP.ClientContext.get_current();
 
 });
 
 
+//======================================================= PEGA OS ARGUMENTOS DOS TEXTBOXES
+function argInsert() {
+    $("#argsI").val($("#txtNomeLista").val() + ";" + $("#txtInternalName").val() + ";" + $("#txtTexto").val());
+}
+function argUpdate() {
+    $("#argsU").val($("#txtNomeLista").val() + ";" + $("#txtID").val() + ";" + $("#txtInternalName").val() + ";" + $("#txtTexto").val());
+}
+function argDelete() {
+    $("#argsD").val($("#txtNomeLista").val() + ";" + $("#txtID").val());
+}
+function argRetrieve() {
+    $("#argsR").val($("#txtNomeLista").val() + ";");
+}
+function argRetrieveID() {
+    $("#argsRID").val($("#txtNomeLista").val() + ";" + $("#txtID").val());
+}
+//======================================================= PEGA OS ARGUMENTOS DOS TEXTBOXES
+
+
+//======================================================= CRUD
 function CRUD(tipo, args) {
 
     var argSplit = args.split(";");
@@ -48,9 +66,9 @@ function InsertItem(listTitle, internalNameItem, itemData) {
     item.update();
 
     ctx.executeQueryAsync(function () {
-        console.log("Item criado: " + item.get_item(internalNameItem)); 
+        console.log("Item criado: " + item.get_item(internalNameItem));
     }, function () {
-        console.log("Erro!"); 
+        console.log("Erro!");
     });
 }
 
@@ -71,6 +89,7 @@ function UpdateItem(listTitle, idItem, internalNameItem, itemData) {
 }
 
 function DeleteItem(listTitle, idItem) {
+    var itemDeletado = get_item(idItem);
     var ctx = new SP.ClientContext.get_current();
     item = ctx
         .get_web()
@@ -80,7 +99,7 @@ function DeleteItem(listTitle, idItem) {
 
     item.deleteObject();
     ctx.executeQueryAsync(function () {
-        console.log("ID item deletado: " + get_item(idItem));
+        console.log("ID item deletado: " + itemDeletado);
     });
 }
 
@@ -91,11 +110,7 @@ function RetrieveItem(listTitle) {
         items = list.getItems('');
 
     var item = ctx.loadQuery(items);
-    ctx.executeQueryAsync(function () {
-        item.forEach(function (itm) {
-            console.log("Item: ", itm.get_fieldValues());
-        });
-    });
+    MontaTabela(ctx, item);
 }
 
 function RetrieveItemID(listTitle, idItem) {
@@ -108,8 +123,30 @@ function RetrieveItemID(listTitle, idItem) {
     ctx.executeQueryAsync(function () {
         item.forEach(function (itm) {
             if (parseInt(itm.get_item("ID")) === parseInt(idItem)) {
+                MontaTabelaID(idItem, itm.get_item("Title"));
                 console.log("Item " + idItem + ": ", itm.get_fieldValues());
             }
         });
     });
 }
+//======================================================= CRUD
+
+//======================================================= MONTA TABELA
+function MontaTabela(ctx, item) {
+
+    $("#tabela").append("<table><thead><tr><td>ID</td><td>Title</td></tr></thead><tbody>");
+
+    ctx.executeQueryAsync(function () {
+        item.forEach(function (itm) {
+            $("#tabela").append("<tr><td>" + itm.get_item("ID") + "</td><td>" + itm.get_item("Title") + "</td></tr>");
+            console.log("Item: ", itm.get_fieldValues());
+        });
+    });
+
+    $("#tabela").append("</tbody></table>");
+}
+
+function MontaTabelaID(idItem, titleTitem) {
+    $("#tabela").append("<table><thead><tr><td>ID</td><td>Title</td></tr></thead><tr><td>" + idItem + "</td><td>" + titleTitem + "</td></tr></table>");
+}
+//======================================================= MONTA TABELA
